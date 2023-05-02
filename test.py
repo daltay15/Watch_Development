@@ -14,17 +14,12 @@ def main():
         dc=Pin(8, Pin.OUT),
         backlight=Pin(25, Pin.OUT),
         rotation=0)
+    
 
     tft.init()
     tft.fill(gc9a01.BLACK)
-    
-    def show_text(text, x, y):
-        # Erase the previously displayed text by drawing a black rectangle over it
-        tft.blit(tft, x, y, x + len(text) * 8, y + 16, x, y)
-
-        # Draw the new text at the specified coordinates
-        tft.draw(romand, text, x, y, gc9a01.WHITE)
-
+    def show_text(text):
+        tft.draw(romand, text, 45, 120, gc9a01.WHITE)
 
         
     def show_time():
@@ -40,7 +35,7 @@ def main():
             if len(second) == 1:
                 second = '0' + second
             time_string = hour + ':' + minute + ':' + second
-            show_text(time_string, 45, 120)
+            show_text(time_string)
             time.sleep(1)
             tft.fill(gc9a01.BLACK)
     
