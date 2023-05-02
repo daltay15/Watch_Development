@@ -18,8 +18,6 @@ def main():
 
     tft.init()
     tft.fill(gc9a01.BLACK)
-    def show_text(text):
-        tft.draw(romand, text, 45, 120, gc9a01.WHITE)
 
         
     def show_time():
@@ -35,7 +33,7 @@ def main():
             if len(second) == 1:
                 second = '0' + second
             time_string = hour + ':' + minute + ':' + second
-            show_text(time_string)
+            tft.draw(romand, time_string, 45, 120, gc9a01.WHITE)
             time.sleep(1)
             tft.fill(gc9a01.BLACK)
     
