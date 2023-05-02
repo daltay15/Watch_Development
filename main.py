@@ -2,6 +2,7 @@ import time
 from machine import Pin, SPI
 import gc9a01
 import romand
+import framebuf
 
 def main():
     spi = SPI(1, baudrate=60000000, sck=Pin(10), mosi=Pin(11))
@@ -13,26 +14,17 @@ def main():
         cs=Pin(9, Pin.OUT),
         dc=Pin(8, Pin.OUT),
         backlight=Pin(25, Pin.OUT),
-        rotation=0)
+        rotation=25)
 
     tft.init()
     tft.fill(gc9a01.BLACK)
-    
-    def show_text(text):
-        tft.draw(romand, text, 155, 95, gc9a01.WHITE)
         
-    def show_m(text):
-        tft.draw(romand, text, 100, 95, gc9a01.WHITE)
-        
-    def show_hr(text):
-        tft.draw(romand, text, 50, 95, gc9a01.WHITE)
-    
     def show_date():
         now = time.localtime()
         year = str(now[0])
         month = str(now[1])
         day = str(now[2])
-        date_str = f"{year}-{month}-{day}"
+        date_str = f"{month}/{day}/{year}"
         tft.draw(romand, date_str, 35, 140, gc9a01.WHITE)
     
     def show_time():
@@ -40,9 +32,8 @@ def main():
         hour = str(now[3])
         minute = str(now[4])
         second = str(now[5])
-        show_hr(hour)
-        show_m(minute)
-        show_text(second)
+        time_str = f"{hour}:{minute}:{second}"
+        tft.draw(romand, time_str, 50, 95, gc9a01.WHITE)
     
     while True:
         show_time()
@@ -51,5 +42,4 @@ def main():
         tft.fill(gc9a01.BLACK)
 
 main()
-
 
