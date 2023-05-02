@@ -18,7 +18,6 @@ def main():
 
     tft.init()
     tft.fill(gc9a01.BLACK)
-
         
     def show_time():
         current_time = time.localtime()
@@ -32,19 +31,16 @@ def main():
         if len(second) == 1:
             second = '0' + second
         time_string = hour + ':' + minute + ':' + second
-        tft.draw(romand, time_string, 45, 120, gc9a01.WHITE)
+        tft.draw(romand, time_string, 45, 100, gc9a01.WHITE)
         
     def show_date():
         current_date = time.localtime()
         month = str(current_date[1])
         day = str(current_date[2])
         year = str(current_date[0])
-        if len(month) == 1:
-            month = '0' + month
-        if len(day) == 1:
-            day = '0' + day
+
         date_string = month + '/' + day + '/' + year
-        tft.draw(romand, date_string, 15, 70, gc9a01.WHITE)
+        tft.draw(romand, date_string, 35, 140, gc9a01.WHITE)
         
     while True:
         show_time()
@@ -53,5 +49,3 @@ def main():
         tft.fill(gc9a01.BLACK)
     
 main()
-
-
