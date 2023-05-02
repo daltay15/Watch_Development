@@ -19,41 +19,36 @@ def main():
     tft.fill(gc9a01.BLACK)
     
     def show_text(text):
-        tft.draw(romand, text, 120, 115, gc9a01.WHITE)
+        tft.draw(romand, text, 155, 95, gc9a01.WHITE)
         
     def show_m(text):
-        tft.draw(romand, text, 65,115,gc9a01.WHITE)
-    
-    def show_jpg(jpg):
-        tft.jpg(jpg, 30,0, gc9a01.FAST)
+        tft.draw(romand, text, 100, 95, gc9a01.WHITE)
         
-    def seconds():
-        pass
-    min = 10
-
+    def show_hr(text):
+        tft.draw(romand, text, 50, 95, gc9a01.WHITE)
+    
+    def show_date():
+        now = time.localtime()
+        year = str(now[0])
+        month = str(now[1])
+        day = str(now[2])
+        date_str = f"{year}-{month}-{day}"
+        tft.draw(romand, date_str, 35, 140, gc9a01.WHITE)
+    
+    def show_time():
+        now = time.localtime()
+        hour = str(now[3])
+        minute = str(now[4])
+        second = str(now[5])
+        show_hr(hour)
+        show_m(minute)
+        show_text(second)
+    
     while True:
-        # Dynamicall display i to the screen
-        for i in range(0, 61):
-            if i == 60:
-                min += 1
-            if min != 0:
-                show_m(str(min))
-                
-            show_text(str(i))
-            time.sleep(.1)
-            tft.fill(gc9a01.BLACK)
-            
-                
-        
-        '''
-        tft.jpg("11d.jpg", 30, 20, gc9a01.FAST)
-        tft.draw(romand, "75 F", 130, 70, gc9a01.WHITE) # x, y coords
-    
-        tft.jpg("home.jpg", 55, 130, gc9a01.FAST)
-        tft.draw(romand, "Demir", 130, 155, gc9a01.WHITE)
-
+        show_time()
+        show_date()
         time.sleep(1)
-        '''
+        tft.fill(gc9a01.BLACK)
 
 main()
 
