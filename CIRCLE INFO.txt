@@ -1,0 +1,26 @@
+Dotted CIRCLE:
+
+def draw_border():
+    center_x = 120
+    center_y = 120
+    radius = 110
+    for angle in range(0, 360, 5):
+        x = int(center_x + radius * math.cos(math.radians(angle)))
+        y = int(center_y + radius * math.sin(math.radians(angle)))
+        tft.pixel(x, y, gc9a01.WHITE)
+
+Solid CIRCLE:
+
+def draw_border():
+    center_x = 120
+    center_y = 120
+    radius = 110
+    prev_x, prev_y = None, None
+    for angle in range(0, 360, 5):
+        x = int(center_x + radius * math.cos(math.radians(angle)))
+        y = int(center_y + radius * math.sin(math.radians(angle)))
+        if prev_x is not None:
+            tft.line(prev_x, prev_y, x, y, gc9a01.WHITE)
+        prev_x, prev_y = x, y
+    # connect the last point to the first point to complete the circle
+    tft.line(prev_x, prev_y, center_x + radius, center_y, gc9a01.WHITE)
