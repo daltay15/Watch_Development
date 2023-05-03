@@ -1,7 +1,10 @@
 import time
-from machine import Pin, SPI
+from machine import Pin, SPI, PWM
 import gc9a01
+import utime
+import gc
 import romand
+import math
 import framebuf
 
 def main():
@@ -34,12 +37,28 @@ def main():
         second = str(now[5])
         time_str = f"{hour}:{minute}:{second}"
         tft.draw(romand, time_str, 50, 95, gc9a01.WHITE)
-    
+        
+    def draw_border():
+        center_x = 120
+        center_y = 120
+        radius = 115
+        prev_x, prev_y = None, None
+        for angle in range(0, 360, 5):
+            x = int(center_x + radius * math.cos(math.radians(angle)))
+            y = int(center_y + radius * math.sin(math.radians(angle)))
+            if prev_x is not None:
+                tft.line(prev_x, prev_y, x, y, gc9a01.WHITE)
+            prev_x, prev_y = x, y
+        # connect the last point to the first point to complete the circle
+        tft.line(prev_x, prev_y, center_x + radius, center_y, gc9a01.WHITE)
+
+  
     while True:
         show_time()
         show_date()
+        tft.draw(romand, "Akash Patel" , 60, 35, gc9a01.GREEN, .5)
+        draw_border()
         time.sleep(1)
         tft.fill(gc9a01.BLACK)
 
 main()
-
